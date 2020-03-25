@@ -32,11 +32,12 @@ const MovieForm = props => {
   // loop through the items list to find the item
   // set the item to state to pre-populate the form\
   useEffect(() => {
-    const itemToUpdate = props.movie.find(e => `${e.id}` === id);
+      console.log('props', props)
+    const itemToUpdate = props.movies.find(e => `${e.id}` === id);
     if (itemToUpdate) {
       setMovie(itemToUpdate);
     }
-  }, [props.movie, id]);
+  }, [props.movies, id]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -44,7 +45,7 @@ const MovieForm = props => {
     axios.put(`http://localhost:5000/api/movies/${id}`, movie).then(res => {
     
     console.log('res', res);
-    props.setMovie(res.data);
+    props.setMovieList(res.data);
     push(`/movies/${id}`);
   })
     .catch(err => console.log('err', err))
